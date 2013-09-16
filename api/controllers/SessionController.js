@@ -4,31 +4,67 @@
  * @module		:: Controller
  * @description	:: Contains logic for handling requests.
  */
-var passport = require('passport');
 
 module.exports = {
+
 	'login': function (req,res){
 		res.view();
 	},
 
-	'process': function(req,res){
-		passport.authenticate('local', function (err,usr,info){
-			if ((err)||(!usr)){
-				res.redirect('/login');
-				return;
-			}
-			req.logIn(usr, function(err){
-				if(err) res.send(err);
-				res.redirect('/');
-				return;
-			});
-		})(req,res);
+	'create': function(req,res){
+		if(!req.param('email') || !req.param('password')) {
+      var usernamePasswordRequiredError = 
+        [{name: 'usernamePasswordrequired', message: 'You must enter username and passwor'}];
+      req.session.flash = {
+        err: usernamePasswordRequiredError
+      }
+
+      res.redirect('/session/new');
+      return;
+    }
+
+    User.findOneByEmail(req.param('email'), function (err,user){
+      if(err) return next(err);
+
+      if(!user){
+        var noAccountError = 
+          [{ name: 'noAccount', message: 'The Email Address' + req.param('email') + ' not found.'}]
+        req.session.flash = {
+          err: noAccountError
+        }
+
+        res.redirect('/session/new');
+        return;
+	    }
+      
+      bcrypt.compare(req.param('password'), user.encryptedPassword, function(err, valid){
+        if(err) return next(err);
+
+        if(!valid){
+          var usernamePasswordMismatchError = [{name: 'usernamePasswordMismatch', message: 'Invalid username and password combo'}]
+          req.session.flash = {
+            err:  usernamePasswordMismatchError
+          }
+          res.redirect('/session/new');
+          return;
+        }
+        
+        req.session.authenticated = true;
+        req.session.User = user;
+
+
+        if(req.session.User.admin){
+          res.redirect('/user');
+          return;
+        }
+        console.log(req.session);
+        res.redirect('/user/show/' + user.id);
+      });
+    });
 	},
 
-	'logout': function(req,res){
-		req.logout();
-		res.send('Logout Successful');
+	'destroy': function(req,res){
+     req.session.destroy();
+     res.redirect('/');
 	}
-  
-
 };

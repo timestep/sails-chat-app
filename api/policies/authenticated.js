@@ -4,13 +4,17 @@
 module.exports = function (req, res, ok) {
 
   // User is allowed, proceed to controller
-  if (req.isAuthenticated) {
+	if (req.session.authenticated) {
     return ok();
   }
 
   // User is not allowed
   else {
-  	res.redirect('/login');  
-    res.send("You are not permitted to perform this action.", 403);
+    var requireLoginError = [{name: 'requireLogin', message: 'You must be signed in.'}]
+    req.session.flash = {
+        err: requireLoginError
+    }
+    res.redirect('/session/new');
+    return 
   }
 };
