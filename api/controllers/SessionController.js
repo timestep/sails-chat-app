@@ -58,13 +58,13 @@ module.exports = {
           return;
         }
         console.log(req.session);
-        res.redirect('/user/show/' + user.id);
+        res.redirect('/room/index');
       });
     });
 	},
 
 	'destroy': function(req,res){
-     req.session.destroy();
-     res.redirect('/');
+		req.session.destroy();
+		res.redirect('/');
 	}
 };
