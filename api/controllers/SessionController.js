@@ -60,7 +60,7 @@ module.exports = {
         }
 
         console.log(req.session);
-        res.redirect('/room/');
+        res.redirect('/room/list');
       });
     });
 	},

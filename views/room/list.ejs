@@ -1,13 +1,18 @@
 <h3>Room List</h3>
-
+<div id="room-list"></div>
 
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-
-		socket.subscribe('/room', function (res){
+		socket.get('/room', function(res){
 			console.log(res);
-		});
+			for (var i = 0; i < ) {
+				if (res.hasOwnProperty(name)){
+					console.log(res.name)
+				}
+			};
+		})
+
 
 
 	});
