@@ -7,11 +7,11 @@
 
 module.exports = {
 
-  /* e.g.
-  sayHello: function (req, res) {
-    res.send('hello world!');
+  index: function(req,res,next){
+  	Room.find( function foundRooms(err,rooms){
+  		if(err) return console.log(err);
+  		else { res.send(rooms) }
+  	})
   }
-  */
-  
 
 };

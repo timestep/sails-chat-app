@@ -8,11 +8,15 @@
 
 module.exports = {
 
+	schema: true,
+
   attributes: {
   	
-  	/* e.g.
-  	nickname: 'string'
-  	*/
+  	name: {
+  		type: 'string',
+  		required: true,
+  		unique: true
+  	}
     
   }
 
