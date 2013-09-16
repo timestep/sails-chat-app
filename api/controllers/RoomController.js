@@ -10,8 +10,12 @@ module.exports = {
   'index': function(req,res,next){
   	Room.find( function foundRooms(err,rooms){
   		if(err) return console.log(err);
-  		else { res.view({ rooms: rooms }); }
+  		else { res.json( rooms ); }
   	});
+  },
+
+  'list': function(req,res,next){
+  	res.view();
   },
 
   'new': function(req,res){

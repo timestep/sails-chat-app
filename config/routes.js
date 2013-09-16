@@ -36,6 +36,7 @@ module.exports.routes = {
 
   'get /login': 'SessionController.login',
   'get /logout': 'SessionController.destroy',
+  
 
 
   /*
