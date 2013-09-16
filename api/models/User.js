@@ -12,7 +12,7 @@ module.exports = {
 
   attributes: {
   	username:{
-  		type: 'string'
+  		type: 'string',
   		required: true,
   		unique: true
   	},
@@ -34,7 +34,7 @@ module.exports = {
   				console.log(err);
   				cb(err);
   			} else {
-  				user.password = hash;
+  				usr.password = hash;
   				cb(null, usr);
   			}
   		});
