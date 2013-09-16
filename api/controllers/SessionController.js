@@ -4,6 +4,7 @@
  * @module		:: Controller
  * @description	:: Contains logic for handling requests.
  */
+var bcrypt = require('bcrypt');
 
 module.exports = {
 
@@ -12,18 +13,18 @@ module.exports = {
 	},
 
 	'create': function(req,res){
-		if(!req.param('email') || !req.param('password')) {
+		if(!req.param('username') || !req.param('password')) {
       var usernamePasswordRequiredError = 
         [{name: 'usernamePasswordrequired', message: 'You must enter username and passwor'}];
       req.session.flash = {
         err: usernamePasswordRequiredError
       }
 
-      res.redirect('/session/new');
+      res.redirect('/session/login');
       return;
     }
 
-    User.findOneByEmail(req.param('email'), function (err,user){
+    User.findOneByUsername(req.param('username'), function (err,user){
       if(err) return next(err);
 
       if(!user){
@@ -37,8 +38,8 @@ module.exports = {
         return;
 	    }
       
-      bcrypt.compare(req.param('password'), user.encryptedPassword, function(err, valid){
-        if(err) return next(err);
+      bcrypt.compare(req.param('password'), user.password, function(err, valid){
+        if(err) return console.log(err);
 
         if(!valid){
           var usernamePasswordMismatchError = [{name: 'usernamePasswordMismatch', message: 'Invalid username and password combo'}]
@@ -57,6 +58,7 @@ module.exports = {
           res.redirect('/user');
           return;
         }
+        
         console.log(req.session);
         res.redirect('/room/index');
       });

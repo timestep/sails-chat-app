@@ -10,6 +10,8 @@ var bcrypt = require('bcrypt');
 
 module.exports = {
 
+	schema:true,
+
   attributes: {
   	username:{
   		type: 'string',
