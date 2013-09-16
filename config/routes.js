@@ -37,8 +37,7 @@ module.exports.routes = {
   },
 
   'get /login': 'SessionController.login',
-  'get /logout': 'SessionController.logout',
-  'post /process': 'SessionController.process'
+  'get /logout': 'SessionController.destroy',
 
 
   /*
