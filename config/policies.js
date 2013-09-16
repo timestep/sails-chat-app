@@ -16,7 +16,10 @@ module.exports.policies = {
   // (`true` allows public access) 
   '*': "flash",
 
-  'room': 'authenticated'
+  // 'room': 'authenticated'
+
+
+  
   /*
 	// Here's an example of adding some policies to a controller
 	RabbitController: {
