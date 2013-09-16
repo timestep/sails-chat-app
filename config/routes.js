@@ -38,7 +38,8 @@ module.exports.routes = {
 
   'get /login': 'SessionController.login',
   'get /logout': 'SessionController.logout',
-  
+  'post /process': 'SessionController.process'
+
 
   /*
   // But what if you want your home page to display

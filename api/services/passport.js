@@ -12,7 +12,7 @@ function findById(id, fn){
 	});
 }
 
-function findbyUsername(u, fn){
+function findByUsername(u, fn){
 	User.findOne({
 		username: u
 	}).done(function (err, usr){
@@ -73,7 +73,7 @@ passport.use(new LocalStrategy(
             message: 'Logged In Successfully'
           });
         });
-      })
+      });
     });
   }
 ));

@@ -11,24 +11,21 @@ module.exports = {
 		res.view();
 	},
 
-	'process': function(res,req){
+	'process': function(req,res){
 		passport.authenticate('local', function (err,usr,info){
 			if ((err)||(!usr)){
-				return res.send({
-					message: 'Login Fail'
-				});
-				res.send(err);
+				res.redirect('/login');
+				return;
 			}
 			req.logIn(usr, function(err){
 				if(err) res.send(err);
-				return res.send({
-					message: 'Login Successful'
-				});
+				res.redirect('/');
+				return;
 			});
 		})(req,res);
 	},
 
-	'logout': function(res,req){
+	'logout': function(req,res){
 		req.logout();
 		res.send('Logout Successful');
 	}
