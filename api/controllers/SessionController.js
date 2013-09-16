@@ -58,9 +58,9 @@ module.exports = {
           res.redirect('/user');
           return;
         }
-        
+
         console.log(req.session);
-        res.redirect('/room/index');
+        res.redirect('/room/');
       });
     });
 	},
