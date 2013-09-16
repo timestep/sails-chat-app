@@ -44,6 +44,9 @@
         '{ console.log(response); })`'
     );
     ///////////////////////////////////////////////////////////
+    socket.on('/room',function(res){
+      console.log(res);
+    });
 
 
   });

@@ -11,18 +11,6 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 
-		var data = { room: <%= room.name %> }
-		socket.emit('subscribe',data);
-		
-		$('#outgoing-chat-form').submit(function(e){
-			e.preventDefault();
-			socket.emit('send message', $('#outgoing-chat-field').val());
-			$('#outgoing-chat-field').val('');
-		});
-
-		socket.on('new message', function (data){
-			$('#incoming-chat-window').append(data + '<br />');
-		});
 
 	});
 </script>

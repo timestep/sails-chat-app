@@ -1,19 +1,32 @@
 <h3>Room List</h3>
-<div id="room-list"></div>
+<div>
+	<table class="table">
+		<tr>
+			<th>Name</th>
+			<th></th>
+		</tr>
+		<tbody id="room-list">
+
+		</tbody>
+	</table>
+</div>
 
 <script type="text/javascript">
 	$(document).ready(function(){
 		
 		socket.get('/room', function(res){
+			var tbody = $('#room-list')
+			res.each(function(obj){
+				tbody.append("<tr>");
+				tbody.append("<td>"+obj.name+"</td>");
+				tbody.append("<td>"+"<a href="+'/room/show/'+obj.id+">JOIN</a>"+"</td>");
+				tbody.append("</tr>");
+			});
+		});
+
+		socket.on('/room',function(res){
 			console.log(res);
-			for (var i = 0; i < ) {
-				if (res.hasOwnProperty(name)){
-					console.log(res.name)
-				}
-			};
-		})
-
-
+		});
 
 	});
 </script>
