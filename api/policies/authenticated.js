@@ -3,6 +3,7 @@
  */
 module.exports = function (req, res, ok) {
 
+  console.log('AUTH POLICY')
   // User is allowed, proceed to controller
 	if (req.session.authenticated) {
     return ok();
