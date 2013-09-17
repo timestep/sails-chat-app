@@ -18,7 +18,6 @@ module.exports = {
         req.session.flash = {
           err: err
         }
-      	
       	return res.redirect('/user/new');
       }
 

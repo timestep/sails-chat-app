@@ -17,29 +17,36 @@
 			console.log("submitting post");
 
 			$.post('/room/update/<%=room.id%>',{
-				msgs:[{
 					msg: $('#outgoing-chat-field').val(),
 					roomid: <%=room.id%>,
 					usrname: '<%=session.User.username%>'
-				}]
 			});
+			
 			
 			$('#outgoing-chat-field').val('');
 
 		});
 
 		socket.get('/room/<%=room.id%>', function (res){
-			console.log('get');
-			console.log(res);
+			// console.log('get');
+			// console.log(res);
+			if(res.name == '<%=room.name%>'){
+				var msgs = res.msgs.last(20);
+				msgs.each(function(msg){
+					$("#incoming-chat-window").prepend(
+					msg.usr.username+": "+msg.msg+ '<br />');
+				});
+			}
+
 		});
 
 		socket.on('message', function (res){
-			console.log('HI');
-			console.log(res);
+			// console.log('HI');
+			// console.log(res);
 			// console.log(res);
 			if(res.model == "room" && res.verb == "update" && res.id == <%=room.id%> ){
 				$("#incoming-chat-window").prepend(
-					res.data.msgs[0].usrname+": "+res.data.msgs[0].msg + '<br />');
+					res.data.msgs.last().usr.username+": "+res.data.msgs.last().msg + '<br />');
 			}
 		});
 

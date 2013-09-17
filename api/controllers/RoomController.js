@@ -15,7 +15,31 @@ module.exports = {
   		res.view()
   },
 
-  
+  'update': function(req,res,next){
+    var paramsAll = req.params.all();
+    console.log(paramsAll);
+
+    var msgData = { msg: paramsAll.msg, roomid: req.param('id'), usr: req.session.User };
+    Room.findOne(req.param('id')).done(function(err,r){
+      if(err) return console.log(err);
+      console.log(r);
+
+      r.msgs.push(msgData);
+      console.log(r.msgs);
+
+      Room.update(req.param('id'),{ msgs: r.msgs },function updateRoom(err){
+        if (err) return console.log(err);
+        if (!err){
+          Room.publishUpdate(r.id,{msgs: r.msgs});
+        }
+      });
+
+      res.send(r);
+    
+    });
+    
+  },
+
   // 'create': function(req,res,next){
   // 	Room.create(req.params.all(), function roomCreated(err,room){
   // 		if(err){ 

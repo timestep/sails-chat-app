@@ -15,6 +15,11 @@ module.exports = {
   		type: 'string',
   		required: true,
   		unique: true
+  	},
+
+  	msgs: {
+  		type: 'array',
+  		defaultsTo: []
   	}
     
   }
