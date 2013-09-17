@@ -25,7 +25,7 @@ module.exports = {
       req.session.authenticated = true;
       req.session.User = usr;
 
-      res.redirect('/room/index');
+      res.redirect('/room/list');
     });
 	},
 
