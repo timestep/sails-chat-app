@@ -16,18 +16,18 @@
 
 			console.log("submitting post");
 
-			socket.post('/chat/create',{
+			$.post('/chat/create',{
 				msg: $('#outgoing-chat-field').val(),
 				roomid: <%=room.id%>
 			});
 			
-			$('outgoing-chat-field').val('');
+			$('#outgoing-chat-field').val('');
 
 		});
 
-		socket.get('/chat', function (res){
-			console.log(res);
-		});
+		// socket.get('/chat', function (res){
+		// 	console.log(res);
+		// });
 
 		socket.on('message', function (res){
 			console.log(res);
