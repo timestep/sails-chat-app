@@ -15,14 +15,15 @@ module.exports = {
   		res.view()
   },
 
+  
   // 'create': function(req,res,next){
-  // 	// Room.create(req.params.all(), function roomCreated(err,room){
-  // 	// 	if(err){ 
-  // 	// 		console.log(err); 
-  // 	// 		// return res.redirect('/')
-  // 	// 	}
-  // 	// 	// res.redirect('/room/show/' + room.id);
-  // 	// });
+  // 	Room.create(req.params.all(), function roomCreated(err,room){
+  // 		if(err){ 
+  // 			console.log(err); 
+  // 			return res.redirect('/')
+  // 		}
+  // 		res.redirect('/room/show/' + room.id);
+  // 	});
   // },
 
   'show': function(req,res){
