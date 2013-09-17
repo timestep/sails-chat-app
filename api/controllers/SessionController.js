@@ -59,8 +59,8 @@ module.exports = {
           return;
         }
 
-        console.log(req.session);
-        res.redirect('/room/list');
+        // console.log(req.session);
+        res.redirect('/room/list/');
       });
     });
 	},

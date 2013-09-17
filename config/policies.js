@@ -16,8 +16,10 @@ module.exports.policies = {
   // (`true` allows public access) 
   '*': "flash",
 
-  // 'room': 'authenticated'
-
+  'room': {
+  	'list': 'flash',
+   	'*':	'authenticated'
+  }
 
   
   /*
