@@ -2,6 +2,7 @@
 <div>
 	<table class="table">
 		<tr>
+			<th>id</th>
 			<th>Name</th>
 			<th></th>
 		</tr>
@@ -18,15 +19,23 @@
 			var tbody = $('#room-list')
 			res.each(function(obj){
 				tbody.append("<tr>");
+				tbody.append("<td>"+obj.id+"</td>");
 				tbody.append("<td>"+obj.name+"</td>");
 				tbody.append("<td>"+"<a href="+'/room/show/'+obj.id+">JOIN</a>"+"</td>");
 				tbody.append("</tr>");
 			});
 		});
 
-		socket.on('/room',function(res){
+		socket.on('message',function(res){
+			if (res.model == "room" && res.verb == "create"){
+				var tbody = $('#room-list')
+				tbody.append("<tr>");
+				tbody.append("<td>"+res.data.id+"</td>");
+				tbody.append("<td>"+res.data.name+"</td>");
+				tbody.append("<td>"+"<a href="+'/room/show/'+res.data.id+">JOIN</a>"+"</td>");
+				tbody.append("</tr>");
+			};
 			console.log(res);
 		});
-
 	});
 </script>
