@@ -10,7 +10,7 @@ var bcrypt = require('bcrypt');
 
 module.exports = {
 
-	// schema:true,
+	schema:true,
 
   attributes: {
   	username:{
@@ -25,7 +25,7 @@ module.exports = {
     admin:{
       type: 'boolean',
       defaultsTo: false
-    }
+    },
 
   	toJSON: function() {
   		var obj = this.toObject();

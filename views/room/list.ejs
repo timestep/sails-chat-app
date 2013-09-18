@@ -16,8 +16,9 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-		socket.get('/room', function(res){
-			var tbody = $('#room-list')
+		$.get('/room', function(res){
+			console.log(res);
+			var tbody = $('#room-list');
 			res.each(function(obj){
 				tbody.append("<tr>");
 				// tbody.append("<tr " + "id="+"'"+"roomid-"+obj.id+"'"+">");
@@ -28,7 +29,7 @@
 				<% if (session.User.admin == true) { %>
 					tbody.append("<td>"+"<a href="+'/room/destroy/'+obj.id+">Delete</a>"+"</td>")
 				<% } %>
-				
+
 				tbody.append("</tr>");
 
 			});
