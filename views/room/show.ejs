@@ -1,11 +1,21 @@
 <h3 id="<%= room.name %>"><%= room.name %></h3>
 
-<form id="outgoing-chat-form">
-	<input size="50" type='text' id="outgoing-chat-field">
-	<input type="submit">
-</form>
 
-<div id="incoming-chat-window"></div>
+<div class="panel panel-info">
+	<div class="panel-heading">
+
+			<form id="outgoing-chat-form">
+				<input size="50" type='text' id="outgoing-chat-field">
+				<input type="submit">
+			</form>
+
+	</div>
+
+	<div class="panel-body">
+		<div id="incoming-chat-window"></div>
+	</div>
+</div>
+
 
 
 <script type="text/javascript">
@@ -48,12 +58,10 @@
 				var messageToPost = String(res.data.msgs.last().msg);
 				var username = res.data.msgs.last().usr.username;
 
-				console.log(messageToPost);
-				console.log(typeof messageToPost);
-
-				$("#incoming-chat-window").prepend(
-					'<div>'+username+": "+messageToPost+'<br /></div>'
-				);
+				if (messageToPost != ""){
+					$("#incoming-chat-window").prepend(
+					'<div>'+username+": "+messageToPost+'<br /></div>');
+				}
 			}
 		});
 

@@ -17,7 +17,7 @@
 	$(document).ready(function(){
 		
 		$.get('/room', function(res){
-			console.log(res);
+			// console.log(res);
 			var tbody = $('#room-list');
 			res.each(function(obj){
 				tbody.append("<tr>");
