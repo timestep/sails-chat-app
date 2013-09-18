@@ -19,7 +19,7 @@ module.exports = {
     // var StrippedString = OriginalString.replace(/(<([^>]+)>)/ig,"");
     // var regEx = /<\w>|<\/\w>/g
     var paramsAll = req.params.all();
-    var msgData = { msg: paramsAll.msg.replace(/(<([^>]+)>)/ig,""), roomid: req.param('id'), usr: req.session.User };
+    var msgData = { msg: paramsAll.msg.replace(/(<([^>]+)>)/ig,""), tick: paramsAll.tick, roomid: req.param('id'), usr: req.session.User };
     // var msgData = { msg: paramsAll.msg.replace(regEx,"scr_ipt"), roomid: req.param('id'), usr: req.session.User };
     
     Room.findOne(req.param('id')).done(function(err,r){

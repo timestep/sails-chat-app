@@ -21,13 +21,20 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 
+		var dateFormat = "ddd, MMM Do YYYY, HH:mm:ss"
+
 		$('#outgoing-chat-form').submit(function(e){
 			e.preventDefault();
 
 			console.log("submitting post");
 
+			var now = new Date().getTime();
+
+			console.log(now);
+
 			$.post('/room/update/<%=room.id%>',{
-					msg: $('#outgoing-chat-field').val()
+				msg: $('#outgoing-chat-field').val(),
+				tick: now
 			});
 			
 			
@@ -37,13 +44,19 @@
 
 		socket.get('/room/<%=room.id%>', function (res){
 			// console.log('get');
-			// console.log(res);
+			console.log(res);
 			if(res.name == '<%=room.name%>'){
 				var msgs = res.msgs.last(20);
-
+			
 				msgs.each(function(msg){
+					
+					if (msg.tick != undefined){
+						var msgTime = parseInt(msg.tick);
+						var timeOfMsg = moment(msgTime).format(dateFormat);
+					}
+					
 					$("#incoming-chat-window").prepend(
-					'<div>'+msg.usr.username+": "+String(msg.msg)+ '<br /></div>');
+					'<div>'+"("+String(timeOfMsg)+")"+msg.usr.username+": "+String(msg.msg)+ '<br /></div>');
 				});
 			}
 		});
@@ -57,10 +70,19 @@
 
 				var messageToPost = String(res.data.msgs.last().msg);
 				var username = res.data.msgs.last().usr.username;
+				var msgTime = parseInt(res.data.msgs.last().tick);
+				// console.log(res.data.msgs.last().tick);
+				// console.log(typeOf msgTime);
+				if ( msgTime != undefined){
+					timeOfMsg = moment(msgTime).format(dateFormat);
+				} else {
+					timeOfMsg = 'NO TIME DATA'
+				}
+				console.log(timeOfMsg);
 
 				if (messageToPost != ""){
 					$("#incoming-chat-window").prepend(
-					'<div>'+username+": "+messageToPost+'<br /></div>');
+					'<div>'+"("+String(timeOfMsg)+")"+username+": "+messageToPost+'<br /></div>');
 				}
 			}
 		});
