@@ -10,7 +10,7 @@ var bcrypt = require('bcrypt');
 
 module.exports = {
 
-	schema:true,
+	// schema:true,
 
   attributes: {
   	username:{
@@ -22,6 +22,11 @@ module.exports = {
   		type: 'string',
   		required: true
   	},
+    admin:{
+      type: 'boolean',
+      defaultsTo: false
+    },
+    
   	toJSON: function() {
   		var obj = this.toObject();
   		delete obj.password;

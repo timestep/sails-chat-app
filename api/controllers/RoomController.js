@@ -16,10 +16,11 @@ module.exports = {
   },
 
   'update': function(req,res,next){
+    
+    var regEx = /<script>|<\/script>/g
     var paramsAll = req.params.all();
-    console.log(paramsAll);
-
-    var msgData = { msg: paramsAll.msg, roomid: req.param('id'), usr: req.session.User };
+    var msgData = { msg: paramsAll.msg.replace(regEx,"scr_ipt"), roomid: req.param('id'), usr: req.session.User };
+    
     Room.findOne(req.param('id')).done(function(err,r){
       if(err) return console.log(err);
       console.log(r);
@@ -37,7 +38,6 @@ module.exports = {
       res.send(r);
     
     });
-    
   },
 
   // 'create': function(req,res,next){
