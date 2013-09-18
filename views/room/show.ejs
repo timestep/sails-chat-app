@@ -36,15 +36,12 @@
 					'<div>'+msg.usr.username+": "+String(msg.msg)+ '<br /></div>');
 				});
 			}
-
-			var clients = socket.clients();
-			console.log(clients);
-
 		});
+
 
 		socket.on('message', function (res){
 			// console.log('HI');
-			// console.log(res);
+			console.log(res);
 			// console.log(res);
 			if(res.model == "room" && res.verb == "update" && res.id == <%=room.id%> ){
 

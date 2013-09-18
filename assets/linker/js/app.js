@@ -19,6 +19,8 @@
   socket.on('connect', function socketConnected() {
 
     // socket.set('username', req.session.User.username );
+
+    // console.log(socket.id);
     // Listen for Comet messages from Sails
     socket.on('message', function messageReceived(message) {
 

@@ -52,13 +52,28 @@ module.exports = {
   // },
 
   'show': function(req,res){
-  	Room.findOne(req.param('id'), function foundRoom(err,room){
+    // console.log('Socket clients');
+    // console.log(sails.io.sockets.clients());
+    // console.log('Room Clients');
+    var clients = Room.subscribers(req.param('id'));
+
+    // console.log(sails.io.sockets.clients('/room/'+String(req.param('id'))));
+
+    Room.findOne(req.param('id'), function foundRoom(err,room){
   		if(err) return console.log(err);
   		if(!room) return res.redirect('/');
-  		res.view({
+
+      Room.publish(req,req.param('id'),{clients: clients});
+
+      res.view({
   			room: room
   		});
   	});
   },
+
+  'clients': function(req,res){
+    var clients = Room.subscribers(req.param('id'));
+    Room.publish(req,req.param('id'),{clients: clients});
+  }
 
 };
