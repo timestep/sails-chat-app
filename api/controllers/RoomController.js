@@ -16,10 +16,11 @@ module.exports = {
   },
 
   'update': function(req,res,next){
-    
-    var regEx = /<script>|<\/script>/g
+    // var StrippedString = OriginalString.replace(/(<([^>]+)>)/ig,"");
+    // var regEx = /<\w>|<\/\w>/g
     var paramsAll = req.params.all();
-    var msgData = { msg: paramsAll.msg.replace(regEx,"scr_ipt"), roomid: req.param('id'), usr: req.session.User };
+    var msgData = { msg: paramsAll.msg.replace(/(<([^>]+)>)/ig,""), roomid: req.param('id'), usr: req.session.User };
+    // var msgData = { msg: paramsAll.msg.replace(regEx,"scr_ipt"), roomid: req.param('id'), usr: req.session.User };
     
     Room.findOne(req.param('id')).done(function(err,r){
       if(err) return console.log(err);
