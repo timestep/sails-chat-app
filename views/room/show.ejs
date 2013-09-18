@@ -37,6 +37,9 @@
 				});
 			}
 
+			var clients = socket.clients();
+			console.log(clients);
+
 		});
 
 		socket.on('message', function (res){
@@ -56,6 +59,8 @@
 				);
 			}
 		});
+
+
 
 	});
 </script>
