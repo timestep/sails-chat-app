@@ -56,7 +56,7 @@
 					}
 					
 					$("#incoming-chat-window").prepend(
-					'<div>'+"("+String(timeOfMsg)+")"+msg.usr.username+": "+String(msg.msg)+ '<br /></div>');
+					'<div>'+" "+String(timeOfMsg)+" "+msg.usr.username+": "+String(msg.msg)+ '<br /></div>');
 				});
 			}
 		});
@@ -82,7 +82,7 @@
 
 				if (messageToPost != ""){
 					$("#incoming-chat-window").prepend(
-					'<div>'+"("+String(timeOfMsg)+")"+username+": "+messageToPost+'<br /></div>');
+					'<div>'+" "+String(timeOfMsg)+" "+username+": "+messageToPost+'<br /></div>');
 				}
 			}
 		});
