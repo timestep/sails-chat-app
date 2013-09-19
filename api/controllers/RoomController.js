@@ -12,7 +12,7 @@ module.exports = {
   },
 
   'new': function(req,res){
-  		res.view()
+  	res.view()
   },
 
   'update': function(req,res,next){
@@ -63,7 +63,7 @@ module.exports = {
   		if(err) return console.log(err);
   		if(!room) return res.redirect('/');
 
-      Room.publish(req,req.param('id'),{clients: clients});
+      Room.publishUpdate(req.param('id'),{clients: clients});
 
       res.view({
   			room: room
