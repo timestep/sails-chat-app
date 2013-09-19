@@ -68,7 +68,10 @@
 
 				msgs.each(function(msg){
 					var username = msg.usr.username
-					var messageToPost = String(msg.msg)
+					var messageToPost = msg.msg
+
+
+					
 
 					if (msg.tick != undefined){
 						var msgTime = parseInt(msg.tick);
@@ -106,12 +109,28 @@
 				var chatWindow = $("#incoming-chat-window");
 
 				if (messageToPost != ""){
-					chatWindow.prepend(
-								'<div>'
-								+"["+String(timeOfMsg)+"]"+" "
-								+username+": "
-								+messageToPost
-								+'<br /></div>');
+
+					console.log(messageToPost.match(/^(http:\/\/.+?\.com\/[^.]+)\.(?:jpg|gif|png)/));
+
+					if (messageToPost.match(/^(http:\/\/.+?\.com\/[^.]+)\.(?:jpg|gif|png)/) != null) {
+
+						$("#incoming-chat-window").prepend(
+						'<div>'
+						+"["+String(timeOfMsg)+"]"+" "
+						+username+": "
+						+"<img src='"+ messageToPost +"'>"
+						+'<br /></div>');
+					} else {
+						chatWindow.prepend(
+							'<div>'
+							+"["+String(timeOfMsg)+"]"+" "
+							+username+": "
+							+messageToPost
+							+'<br /></div>'
+						);
+
+					}
+			
 				}
 			}
 		});
