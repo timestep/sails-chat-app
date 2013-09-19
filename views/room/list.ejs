@@ -54,14 +54,22 @@
 			if (res.model == "room" && res.verb == "create"){
 
 				var tbody = $('#room-list')
-				tbody.append("<tr>");
-				// tbody.append("<tr " + 'id='+'roomid-'+res.data.id'>');
-				tbody.append("<td>"+res.data.id+"</td>");
-				tbody.append("<td>"+res.data.name+"</td>");
-				tbody.append("<td>"+"<a href="+'/room/show/'+res.data.id+">JOIN</a>"+"</td>");
-				tbody.append("<td>"+"<a href="+'/room/destroy/'+res.data.id+">Delete</a>"+"</td>")
-				tbody.append("</tr>");
-
+				tbody.prepend(
+					"<tr>"
+						+"<td>"
+							+res.data.id
+						+"</td>"
+						+"<td>"
+							+res.data.name
+						+"</td>"
+						+"<td>"
+							+"<a href="+'/room/show/'+res.data.id+">JOIN</a>"
+						+"</td>"
+						+"<td>"
+							+"<a href="+'/room/destroy/'+res.data.id+">Delete</a>"
+						+"</td>"
+					+"</tr>"
+				);
 			};
 		});
 	});
