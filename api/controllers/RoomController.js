@@ -11,6 +11,17 @@ module.exports = {
   	res.view();
   },
 
+  'index': function(req,res){
+    Room.find(function foundRoom(err,rooms){
+      if(err) return console.log(err);
+      else { res.json({
+          success: true,
+          message: rooms
+        });
+      };
+    });
+  },
+
   'new': function(req,res){
   	res.view()
   },
@@ -19,7 +30,13 @@ module.exports = {
     // var StrippedString = OriginalString.replace(/(<([^>]+)>)/ig,"");
     // var regEx = /<\w>|<\/\w>/g
     var paramsAll = req.params.all();
-    var msgData = { msg: paramsAll.msg.replace(/(<([^>]+)>)/ig,""), tick: paramsAll.tick, roomid: req.param('id'), usr: req.session.User };
+
+    var msgData = { 
+      msg: paramsAll.msg.replace(/(<([^>]+)>)/ig,"<code>"), 
+      tick: paramsAll.tick, 
+      roomid: req.param('id'), 
+      usr: req.session.User 
+    };
     // var msgData = { msg: paramsAll.msg.replace(regEx,"scr_ipt"), roomid: req.param('id'), usr: req.session.User };
     
     Room.findOne(req.param('id')).done(function(err,r){
@@ -52,22 +69,22 @@ module.exports = {
   // },
 
   'show': function(req,res){
-    // console.log('Socket clients');
-    // console.log(sails.io.sockets.clients());
-    // console.log('Room Clients');
-    var clients = Room.subscribers(req.param('id'));
 
-    // console.log(sails.io.sockets.clients('/room/'+String(req.param('id'))));
+    var clients = Room.subscribers(req.param('id'));
+    // Room.publish(req.socket, req.param('id'),{clients: clients});
 
     Room.findOne(req.param('id'), function foundRoom(err,room){
   		if(err) return console.log(err);
   		if(!room) return res.redirect('/');
+      if(!err){
+        // var clients = Room.subscribers(req.param('id'));
+        console.log(clients);
+        // Room.publishUpdate(req.param('id'),{clients: clients});
 
-      Room.publishUpdate(req.param('id'),{clients: clients});
-
-      res.view({
-  			room: room
-  		});
+        res.view({
+          room: room
+        });
+      }
   	});
   },
 

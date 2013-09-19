@@ -16,23 +16,28 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-		$.get('/room', function(res){
-			// console.log(res);
-			var tbody = $('#room-list');
-			res.each(function(obj){
-				tbody.append("<tr>");
-				// tbody.append("<tr " + "id="+"'"+"roomid-"+obj.id+"'"+">");
-				tbody.append("<td>"+obj.id+"</td>");
-				tbody.append("<td>"+obj.name+"</td>");
-				tbody.append("<td>"+"<a href="+'/room/show/'+obj.id+">JOIN</a>"+"</td>");
+		socket.get('/room', function(res){
+			console.log(res);
 
-				<% if (session.User.admin == true) { %>
-					tbody.append("<td>"+"<a href="+'/room/destroy/'+obj.id+">Delete</a>"+"</td>")
-				<% } %>
+			if(res.success==true){
+				
+				res = res.message;
 
-				tbody.append("</tr>");
+				var tbody = $('#room-list');
+				res.each(function(obj){
+					tbody.append("<tr>");
+					// tbody.append("<tr " + "id="+"'"+"roomid-"+obj.id+"'"+">");
+					tbody.append("<td>"+obj.id+"</td>");
+					tbody.append("<td>"+obj.name+"</td>");
+					tbody.append("<td>"+"<a href="+'/room/show/'+obj.id+">JOIN</a>"+"</td>");
 
-			});
+					<% if (session.User.admin == true) { %>
+						tbody.append("<td>"+"<a href="+'/room/destroy/'+obj.id+">Delete</a>"+"</td>")
+					<% } %>
+
+					tbody.append("</tr>");
+				});
+			}
 		});
 
 		socket.on('message',function(res){

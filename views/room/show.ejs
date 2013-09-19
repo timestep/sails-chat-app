@@ -3,7 +3,7 @@
 
 <div class="panel panel-info">
 	<div class="panel-heading">
-
+		
 			<form id="outgoing-chat-form">
 				<input size="50" type='text' id="outgoing-chat-field">
 				<input type="submit">
@@ -12,7 +12,9 @@
 	</div>
 
 	<div class="panel-body">
-		<div id="incoming-chat-window"></div>
+		<div class="container">
+				<div id="incoming-chat-window"></div>
+		</div>
 	</div>
 </div>
 
@@ -30,9 +32,9 @@
 
 			var now = new Date().getTime();
 
-			console.log(now);
+			// console.log(now);
 
-			$.post('/room/update/<%=room.id%>',{
+			socket.post('/room/update/<%=room.id%>',{
 				msg: $('#outgoing-chat-field').val(),
 				tick: now
 			});
@@ -63,7 +65,7 @@
 
 
 		socket.on('message', function (res){
-			// console.log('HI');
+			console.log('HI');
 			console.log(res);
 			// console.log(res);
 			if(res.model == "room" && res.verb == "update" && res.id == <%=room.id%> ){
@@ -78,7 +80,7 @@
 				} else {
 					timeOfMsg = 'NO TIME DATA'
 				}
-				console.log(timeOfMsg);
+				// console.log(timeOfMsg);
 
 				if (messageToPost != ""){
 					$("#incoming-chat-window").prepend(
