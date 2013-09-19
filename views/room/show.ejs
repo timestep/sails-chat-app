@@ -107,10 +107,11 @@
 				}
 				// console.log(timeOfMsg);
 				var chatWindow = $("#incoming-chat-window");
+				var regex = /^(https?:\/\/.+?\.(?:com|net|org)\/[^.]+)\.(?:jpg|gif|png)/
 
 				if (messageToPost != ""){
 
-					console.log(messageToPost.match(/^(http:\/\/.+?\.com\/[^.]+)\.(?:jpg|gif|png)/));
+					console.log(messageToPost.match(regex));
 
 					if (messageToPost.match(/^(http:\/\/.+?\.com\/[^.]+)\.(?:jpg|gif|png)/) != null) {
 
@@ -118,9 +119,11 @@
 						'<div>'
 						+"["+String(timeOfMsg)+"]"+" "
 						+username+": "
-						+"<img src='"+ messageToPost +"'>"
+						+"<img style='height:auto; width:auto; max-width:300px; max-height:300px;'' src='"+ messageToPost +"'>"
 						+'<br /></div>');
-					} else {
+					} 
+
+					else {
 						chatWindow.prepend(
 							'<div>'
 							+"["+String(timeOfMsg)+"]"+" "
