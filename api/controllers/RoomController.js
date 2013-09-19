@@ -101,20 +101,26 @@ module.exports = {
   		if(err) return console.log(err);
   		if(!room) return res.redirect('/');
       if(!err){
-        // var clients = Room.subscribers(req.param('id'));
+        var clients = Room.subscribers(req.param('id'));
         // console.log(clients);
         // Room.publishUpdate(req.param('id'),{clients: clients});
 
         res.view({
-          room: room
+          success: true,
+          room: room,
+          clients: clients
         });
       }
   	});
   },
 
-  'clients': function(req,res){
-    var clients = Room.subscribers(req.param('id'));
-    Room.publish(req,req.param('id'),{clients: clients});
-  }
+  // 'clients': function(req,res){
+
+  //   var clients = Room.subscribers(req.param('id'));
+  //   res.json({
+  //     success:true,
+  //     message: clients
+  //   });
+  // }
 
 };
