@@ -24,7 +24,7 @@
 	$(document).ready(function(){
 
 		var dateFormat = "ddd, MMM Do YYYY, HH:mm:ss"
-		// var previousMsg = new Array;
+		var previousMsg = [];
 		var previousMsgIndex = 0;
 
 		$('#outgoing-chat-form').submit(function(e){
@@ -42,8 +42,10 @@
 			});
 			
 			previousMsg.push($('#outgoing-chat-field').val());
-			$('#outgoing-chat-field').val('');
 			previousMsgIndex = 0;
+
+			$('#outgoing-chat-field').val('');
+
 
 		});
 
