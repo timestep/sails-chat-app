@@ -24,6 +24,8 @@
 	$(document).ready(function(){
 
 		var dateFormat = "ddd, MMM Do YYYY, HH:mm:ss"
+		// var previousMsg = new Array;
+		var previousMsgIndex = 0;
 
 		$('#outgoing-chat-form').submit(function(e){
 			e.preventDefault();
@@ -39,34 +41,52 @@
 				tick: now
 			});
 			
-			
+			previousMsg.push($('#outgoing-chat-field').val());
 			$('#outgoing-chat-field').val('');
+			previousMsgIndex = 0;
 
 		});
 
+		$('#outgoing-chat-field').keyup(function(e){
+			if ( e.keyCode == 38){
+				// $('#outgoing-chat-field').val('');
+				$('#outgoing-chat-field')
+					.val(previousMsg.last(previousMsgIndex).first());
+				previousMsgIndex++;
+			}
+		});
+
+
 		socket.get('/room/<%=room.id%>', function (res){
 			// console.log('get');
-			console.log(res);
+			// console.log(res);
 			if(res.name == '<%=room.name%>'){
 				var msgs = res.msgs.last(20);
-			
+				
+
 				msgs.each(function(msg){
-					
+					var username = msg.usr.username
+					var messageToPost = String(msg.msg)
+
 					if (msg.tick != undefined){
 						var msgTime = parseInt(msg.tick);
 						var timeOfMsg = moment(msgTime).format(dateFormat);
 					}
 					
 					$("#incoming-chat-window").prepend(
-					'<div>'+" "+String(timeOfMsg)+" "+msg.usr.username+": "+String(msg.msg)+ '<br /></div>');
+						'<div>'
+						+"["+String(timeOfMsg)+"]"+" "
+						+username+": "
+						+messageToPost
+						+ '<br /></div>');
 				});
 			}
 		});
 
 
 		socket.on('message', function (res){
-			console.log('HI');
-			console.log(res);
+			// console.log('HI');
+			// console.log(res);
 			// console.log(res);
 			if(res.model == "room" && res.verb == "update" && res.id == <%=room.id%> ){
 
@@ -81,10 +101,15 @@
 					timeOfMsg = 'NO TIME DATA'
 				}
 				// console.log(timeOfMsg);
+				var chatWindow = $("#incoming-chat-window");
 
 				if (messageToPost != ""){
-					$("#incoming-chat-window").prepend(
-					'<div>'+" "+String(timeOfMsg)+" "+username+": "+messageToPost+'<br /></div>');
+					chatWindow.prepend(
+								'<div>'
+								+"["+String(timeOfMsg)+"]"+" "
+								+username+": "
+								+messageToPost
+								+'<br /></div>');
 				}
 			}
 		});

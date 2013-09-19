@@ -14,10 +14,29 @@ module.exports = {
   'index': function(req,res){
     Room.find(function foundRoom(err,rooms){
       if(err) return console.log(err);
-      else { res.json({
+      else { 
+        // console.log('---------------')
+        // console.log(rooms);
+
+        var roomsOnlyIDName = [];
+        // console.log('---------------')
+
+        for( var i = 0; i< rooms.length; i++){
+          if (rooms[i].msgs != undefined) {
+            delete rooms[i].msgs;
+            roomsOnlyIDName.push(rooms[i]);
+          }
+        }
+
+        rooms = roomsOnlyIDName;
+ 
+        res.json({
           success: true,
           message: rooms
         });
+
+        Room.subscribe(req.socket);
+
       };
     });
   },
@@ -41,10 +60,10 @@ module.exports = {
     
     Room.findOne(req.param('id')).done(function(err,r){
       if(err) return console.log(err);
-      console.log(r);
+      // console.log(r);
 
       r.msgs.push(msgData);
-      console.log(r.msgs);
+      // console.log(r.msgs);
 
       Room.update(req.param('id'),{ msgs: r.msgs },function updateRoom(err){
         if (err) return console.log(err);
@@ -58,17 +77,22 @@ module.exports = {
     });
   },
 
-  // 'create': function(req,res,next){
-  // 	Room.create(req.params.all(), function roomCreated(err,room){
-  // 		if(err){ 
-  // 			console.log(err); 
-  // 			return res.redirect('/')
-  // 		}
-  // 		res.redirect('/room/show/' + room.id);
-  // 	});
-  // },
+  'create': function(req,res,next){
+  	Room.create(req.params.all(), function roomCreated(err,room){
+  		if(err){ 
+  			console.log(err); 
+  			return res.redirect('/')
+  		}
+      Room.publishCreate({
+        id:room.id,
+        name: room.name
+      });	
+  	});
+  },
 
   'show': function(req,res){
+
+    // Room.subscribe(req.socket, req.param('id'));
 
     var clients = Room.subscribers(req.param('id'));
     // Room.publish(req.socket, req.param('id'),{clients: clients});
@@ -78,7 +102,7 @@ module.exports = {
   		if(!room) return res.redirect('/');
       if(!err){
         // var clients = Room.subscribers(req.param('id'));
-        console.log(clients);
+        // console.log(clients);
         // Room.publishUpdate(req.param('id'),{clients: clients});
 
         res.view({

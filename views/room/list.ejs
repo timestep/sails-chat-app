@@ -16,15 +16,24 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-		socket.get('/room', function(res){
-			console.log(res);
+		// socket.subscribe('/room');
+
+		socket.request('/room', function(res){
+			// console.log(res);
 
 			if(res.success==true){
 				
 				res = res.message;
 
+				res.sort(function	(msg1,msg2){
+					return msg2.id - msg1.id
+				});
+
 				var tbody = $('#room-list');
 				res.each(function(obj){
+
+
+
 					tbody.append("<tr>");
 					// tbody.append("<tr " + "id="+"'"+"roomid-"+obj.id+"'"+">");
 					tbody.append("<td>"+obj.id+"</td>");
@@ -41,7 +50,9 @@
 		});
 
 		socket.on('message',function(res){
+			// console.log(res);
 			if (res.model == "room" && res.verb == "create"){
+
 				var tbody = $('#room-list')
 				tbody.append("<tr>");
 				// tbody.append("<tr " + 'id='+'roomid-'+res.data.id'>');
@@ -50,8 +61,8 @@
 				tbody.append("<td>"+"<a href="+'/room/show/'+res.data.id+">JOIN</a>"+"</td>");
 				tbody.append("<td>"+"<a href="+'/room/destroy/'+res.data.id+">Delete</a>"+"</td>")
 				tbody.append("</tr>");
+
 			};
-			console.log(res);
 		});
 	});
 </script>
