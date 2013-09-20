@@ -16,7 +16,8 @@
         "sails-postgresql":"",
         "chai":"",
         "chai-http":"",
-        "node-inspector":""
+        "node-inspector":"",
+        "should":""
     },
     "scripts": {
         "start": "node app.js",

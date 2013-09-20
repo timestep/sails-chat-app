@@ -1,5 +1,5 @@
 var assert = require("assert")
-
+// var should = require("should")
 
 
 describe('Array', function(){
@@ -10,6 +10,9 @@ describe('Array', function(){
     })
     it('should return 1 when value is present',function(){
     	assert.equal(1,[1,2,4].indexOf(2));
+    })
+    it('should fail',function(){
+    	assert.notEqual(1,3);
     })
   })
 })
