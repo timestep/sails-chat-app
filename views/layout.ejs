@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:ng="http://angularjs.org">
   <head>
     <title><%- title %></title>
 
@@ -39,7 +39,7 @@
     <!--STYLES END-->
   </head>
 
-<body ng-app="myApp">
+<body >
   <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
@@ -132,8 +132,14 @@
     </div>
 <%- body %>
   </div>    
-
-  <script>
+    <script src="http://code.angularjs.org/angular.js"></script>
+        <script>
+           angular.element(document).ready(function() {
+             angular.module('myApp', []);
+             angular.bootstrap(document, ['myApp']);
+           });
+        </script>
+      <script>
     $(document).ready(function(){
 
       $('#newchat-form').submit(function(e){
