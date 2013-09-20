@@ -3,22 +3,36 @@ var chai = require('chai')
 
 chai.use(chaiHttp);
 
-var app = 'http://localhost:1337'
+var app = 'http://localhost:1337';
+var visit_root_path = chai.request(app).get('/')
+var visit_user_path = chai.request(app).get('/user')
 
-describe('A visitor',function(){
+describe('JSON ENDPOINT',function(){
 
-	describe('visits the page',function(){
-	
+	describe('root path',function(){
 		it('should be successful', function(done){
-	
-			chai.request(app).get('/')
-				.res(function(res){
-					expect(res).to.have.status(200);
-				});
+			visit_root_path.res(function(res){
+				expect(res).to.have.status(200);
+			});
 			done();
+		})
+	})
 
-		});
-	
-	});
+  describe('user index',function(){
+  	it('should be successful', function(done){
+  		visit_user_path.res(function(res){
+  			expect(res).to.have.status(200);
+  		});
+  		done();
+  	})
 
-});
+  	it('should be JSON', function(done){
+  		visit_user_path.res(function(res){
+  			expect(res).to.be.json;
+  		});
+  		done();
+  	})
+  })
+
+  
+})
