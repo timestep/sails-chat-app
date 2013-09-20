@@ -14,7 +14,7 @@ module.exports = {
 
   'index': function(req,res){
     Room.find(function foundRoom(err,rooms){
-      debugger;
+      // debugger;
       if(err) return console.log(err);
       else { 
         // console.log('---------------')
