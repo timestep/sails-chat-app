@@ -17,8 +17,8 @@ module.exports.policies = {
   '*': "flash",
 
   'room': {
-   	// '*':	['flash','authenticated']
-   	'*': true
+   	'*':	['flash','authenticated']
+   	// '*': true
   }
 
   

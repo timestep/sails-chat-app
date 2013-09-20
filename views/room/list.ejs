@@ -1,76 +1,84 @@
-<h3>Room List</h3>
-<div>
-	<table class="table">
-		<tr>
-			<th>id</th>
-			<th>Name</th>
-			<th></th>
-			<th></th>
-		</tr>
-		<tbody id="room-list">
-
-		</tbody>
-	</table>
+<div ng-controller="RoomListCtrl">
+	<h3>Room List</h3>
+		<div>
+			<table class="table">
+				<tr>
+					<th>id</th>
+					<th>Name</th>
+					<th></th>
+					<th></th>
+				</tr>
+				<tbody id="room-list">
+					<tr ng-repeat="room in rooms">
+						<td>{{room.id}}</td>
+						<td>{{room.name}}</td>
+						<td><a href="/room/show/{{room.id}}">JOIN</a></td>
+						<td><a href="/room/destroy/{{room.id}}"></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 </div>
 
-<script type="text/javascript">
-	$(document).ready(function(){
+<script src="js/controllers/roomControllers.js"></script>
+<!--<script type="text/javascript">
+// 	$(document).ready(function(){
 		
-		// socket.subscribe('/room');
+// 		// socket.subscribe('/room');
 
-		socket.request('/room', function(res){
-			// console.log(res);
+// 		socket.request('/room', function(res){
+// 			// console.log(res);
 
-			if(res.success==true){
+// 			if(res.success==true){
 				
-				res = res.message;
+// 				res = res.message;
 
-				res.sort(function	(msg1,msg2){
-					return msg2.id - msg1.id
-				});
+// 				res.sort(function	(msg1,msg2){
+// 					return msg2.id - msg1.id
+// 				});
 
-				var tbody = $('#room-list');
-				res.each(function(obj){
+// 				var tbody = $('#room-list');
+// 				res.each(function(obj){
 
 
 
-					tbody.append("<tr>");
-					// tbody.append("<tr " + "id="+"'"+"roomid-"+obj.id+"'"+">");
-					tbody.append("<td>"+obj.id+"</td>");
-					tbody.append("<td>"+obj.name+"</td>");
-					tbody.append("<td>"+"<a href="+'/room/show/'+obj.id+">JOIN</a>"+"</td>");
+// 					tbody.append("<tr>");
+// 					// tbody.append("<tr " + "id="+"'"+"roomid-"+obj.id+"'"+">");
+// 					tbody.append("<td>"+obj.id+"</td>");
+// 					tbody.append("<td>"+obj.name+"</td>");
+// 					tbody.append("<td>"+"<a href="+'/room/show/'+obj.id+">JOIN</a>"+"</td>");
 
-					<% if (session.User.admin == true) { %>
-						tbody.append("<td>"+"<a href="+'/room/destroy/'+obj.id+">Delete</a>"+"</td>")
-					<% } %>
+// 					<% if (session.User.admin == true) { %>
+// 						tbody.append("<td>"+"<a href="+'/room/destroy/'+obj.id+">Delete</a>"+"</td>")
+// 					<% } %>
 
-					tbody.append("</tr>");
-				});
-			}
-		});
+// 					tbody.append("</tr>");
+// 				});
+// 			}
+// 		});
 
-		socket.on('message',function(res){
-			// console.log(res);
-			if (res.model == "room" && res.verb == "create"){
+// 		socket.on('message',function(res){
+// 			// console.log(res);
+// 			if (res.model == "room" && res.verb == "create"){
 
-				var tbody = $('#room-list')
-				tbody.prepend(
-					"<tr>"
-						+"<td>"
-							+res.data.id
-						+"</td>"
-						+"<td>"
-							+res.data.name
-						+"</td>"
-						+"<td>"
-							+"<a href="+'/room/show/'+res.data.id+">JOIN</a>"
-						+"</td>"
-						+"<td>"
-							+"<a href="+'/room/destroy/'+res.data.id+">Delete</a>"
-						+"</td>"
-					+"</tr>"
-				);
-			};
-		});
-	});
-</script>
+// 				var tbody = $('#room-list')
+// 				tbody.prepend(
+// 					"<tr>"
+// 						+"<td>"
+// 							+res.data.id
+// 						+"</td>"
+// 						+"<td>"
+// 							+res.data.name
+// 						+"</td>"
+// 						+"<td>"
+// 							+"<a href="+'/room/show/'+res.data.id+">JOIN</a>"
+// 						+"</td>"
+// 						+"<td>"
+// 							+"<a href="+'/room/destroy/'+res.data.id+">Delete</a>"
+// 						+"</td>"
+// 					+"</tr>"
+// 				);
+// 			};
+// 		});
+// 	});
+// </script>

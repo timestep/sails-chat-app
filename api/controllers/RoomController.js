@@ -8,7 +8,6 @@
 module.exports = {
 
   'list': function(req,res,next){
-
   	res.view();
   },
 
