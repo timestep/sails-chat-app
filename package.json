@@ -13,7 +13,9 @@
         "passport-local": "~0.1.6",
         "bcrypt": "~0.7.6",
         "sugar":"",
-        "sails-postgresql":""
+        "sails-postgresql":"",
+        "chai":"",
+        "chai-http":""
     },
     "scripts": {
         "start": "node app.js",
