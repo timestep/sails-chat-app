@@ -15,7 +15,8 @@
         "sugar":"",
         "sails-postgresql":"",
         "chai":"",
-        "chai-http":""
+        "chai-http":"",
+        "node-inspector":""
     },
     "scripts": {
         "start": "node app.js",

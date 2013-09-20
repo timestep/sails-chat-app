@@ -8,11 +8,13 @@
 module.exports = {
 
   'list': function(req,res,next){
+
   	res.view();
   },
 
   'index': function(req,res){
     Room.find(function foundRoom(err,rooms){
+      debugger;
       if(err) return console.log(err);
       else { 
         // console.log('---------------')
