@@ -19,9 +19,9 @@ describe('JSON ENDPOINT',function(){
 			visit_root_path.res(function(res){
         res.should.have.status(200);
         // console.log(res);
-				// res.should.be.json;
+				res.should.be.json;
         // res.should.be.html
-        // res.should.be.html;
+        res.should.be.html;
 			})
       done();
 		})
@@ -30,9 +30,11 @@ describe('JSON ENDPOINT',function(){
   describe('user index',function(){
 
   	it('should be successful', function(done){
+
   		visit_user_path.res(function(res){
   			string.should.have.status(200);
   		})
+
       done();
   	})
 
