@@ -37,6 +37,10 @@ module.exports.routes = {
   'get /login': 'SessionController.login',
   'get /logout': 'SessionController.destroy',
   
+  '/angular': {
+    view: 'angular/home'
+  },
+
 
 
   /*

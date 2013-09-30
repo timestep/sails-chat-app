@@ -64,15 +64,9 @@
 			// console.log(res);
 			if(res.name == '<%=room.name%>'){
 				var msgs = res.msgs.last(20);
-				
-
 				msgs.each(function(msg){
 					var username = msg.usr.username
 					var messageToPost = msg.msg
-
-
-					
-
 					if (msg.tick != undefined){
 						var msgTime = parseInt(msg.tick);
 						var timeOfMsg = moment(msgTime).format(dateFormat);
@@ -131,14 +125,9 @@
 							+messageToPost
 							+'<br /></div>'
 						);
-
 					}
-			
 				}
 			}
 		});
-
-
-
 	});
 </script>

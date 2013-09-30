@@ -78,6 +78,7 @@ module.exports = {
   },
 
   'create': function(req,res,next){
+    // debugger;
   	Room.create(req.params.all(), function roomCreated(err,room){
   		if(err){ 
   			console.log(err); 

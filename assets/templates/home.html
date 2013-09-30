@@ -1,0 +1,27 @@
+<div ng-controller = "RoomsCtrl">
+	<input type="text" ng-model='roomQuery' placeholder="Find Room">
+	<br>
+	<form ng-submit="createRoom()">
+		<input type="text" size="50" ng-model="newRoom" placeholder="Create Room">
+	</form>
+
+	
+	<table class="table">
+
+		<tr>
+			<th>id</th>
+			<th>Name</th>
+			<th></th>
+			<th></th>
+		</tr>
+
+		<tbody id="room-list" >
+			<tr ng-repeat="room in rooms | orderBy:'id':true | filter: roomQuery">
+				<td>{{room.id}}</td>
+				<td>{{room.name}}</td>
+				<td><a href="#room/{{room.id}}">JOIN</a></td>
+			</tr>
+		</tbody>
+		
+	</table>
+</div>

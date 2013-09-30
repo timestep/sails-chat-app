@@ -1,0 +1,22 @@
+<div ng-controller = "RoomCtrl">
+	<h3>{{roomData.name}}</h3>
+	
+	<div class="panel panel-info">
+
+		<div class="panel-heading">
+			<form ng-submit="addMessage()">
+				<input type="text" size="50" ng-model="newMessage">
+			</form>
+		</div>
+	
+		<div class="panel-body">
+			<div class="container">
+				<div ng-repeat="message in roomData.msgs | orderBy:'tick':true">
+					[{{message.tick|date:'HH:mm:ss'}}] {{message.usr.username}}: {{message.msg}}<br>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
